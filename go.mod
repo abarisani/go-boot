@@ -1,6 +1,8 @@
 module github.com/usbarmory/go-boot
 
-go 1.27.0
+go 1.27.1
+
+replace github.com/usbarmory/tamago => /mnt/git/public/tamago
 
 tool github.com/usbarmory/tamago/cmd/tamago
 

@@ -22,8 +22,8 @@ TEXT ·callFn(SB),NOSPLIT,$0-48
 	MOVQ	SP, BX		// callee-saved
 
 	// set stack to unused RAM boundary (see runtime.ramStackOffset)
-	MOVQ	runtime∕goos·RamStart(SB), SP
-	MOVQ	runtime∕goos·RamSize(SB), CX
+	MOVQ	github·com∕usbarmory∕tamago∕mem·RamStart(SB), SP
+	MOVQ	github·com∕usbarmory∕tamago∕mem·RamSize(SB), CX
 	ADDQ	CX, SP
 
 	ANDQ	$~15, SP	// alignment for x86_64 ABI

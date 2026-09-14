@@ -6,9 +6,9 @@
 package uefi
 
 import (
-	"runtime"
-
 	"github.com/u-root/u-root/pkg/boot/bzimage"
+
+	"github.com/usbarmory/tamago/mem"
 )
 
 const (
@@ -95,14 +95,14 @@ func (m *MemoryMap) E820() (e820 []bzimage.E820Entry) {
 
 	// When defragging we join unikernel allocation as a single page to
 	// ease its skipping during boot manager memory reservation.
-	ramStart, ramEnd := runtime.MemRegion()
+	ramStart, ramEnd := mem.Region()
 
 	for _, desc := range m.Descriptors {
 		entry := desc.E820()
 
 		if prev != nil {
 			// join and isolate runtime.MemRegion()
-			if (entry.Addr != ramStart && prev.Addr+prev.Size != ramEnd) &&
+			if (entry.Addr != uint64(ramStart) && prev.Addr+prev.Size != uint64(ramEnd)) &&
 				// join adjacent entries
 				(prev.MemType == entry.MemType && prev.Addr+prev.Size == entry.Addr) {
 				// increase size of previous entry

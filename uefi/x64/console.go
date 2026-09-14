@@ -22,7 +22,7 @@ var Console = &uefi.Console{
 // UEFI runtime services.
 var Stdout func(byte)
 
-//go:linkname printk runtime/goos.Printk
+//go:linkname printk internal/runtime/goospkg.WriteConsole
 func printk(c byte) {
 	if Stdout != nil {
 		Stdout(c)
